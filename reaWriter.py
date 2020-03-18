@@ -39,23 +39,23 @@ def reaWriter(reaFile,newReaFile,points,faces,cells):
 		
 		newRea = newRea + '            ELEMENT     '+str(i+1).rjust(7)+' [    1a]  GROUP  0\n'
 		# adding x
-		newRea = (newRea + format(cell.points_nek[0].x,'f').rjust(10) + format(cell.points_nek[1].x,'f').rjust(14)
-			+ format(cell.points_nek[2].x,'f').rjust(14) + format(cell.points_nek[3].x,'f').rjust(14) +'\n')
+		newRea = (newRea + format(cell.points_nek[0].x,'.15f').rjust(20) + format(cell.points_nek[1].x,'.15f').rjust(20)
+			+ format(cell.points_nek[2].x,'.15f').rjust(20) + format(cell.points_nek[3].x,'.15f').rjust(20) +'\n')
 		# adding y
-		newRea = (newRea + format(cell.points_nek[0].y,'f').rjust(10) + format(cell.points_nek[1].y,'f').rjust(14)
-			+ format(cell.points_nek[2].y,'f').rjust(14) + format(cell.points_nek[3].y,'f').rjust(14) +'\n')
+		newRea = (newRea + format(cell.points_nek[0].y,'.15f').rjust(20) + format(cell.points_nek[1].y,'.15f').rjust(20)
+			+ format(cell.points_nek[2].y,'.15f').rjust(20) + format(cell.points_nek[3].y,'.15f').rjust(20) +'\n')
 		# adding z
-		newRea = (newRea + format(cell.points_nek[0].z,'f').rjust(10) + format(cell.points_nek[1].z,'f').rjust(14)
-			+ format(cell.points_nek[2].z,'f').rjust(14) + format(cell.points_nek[3].z,'f').rjust(14) +'\n')
+		newRea = (newRea + format(cell.points_nek[0].z,'.15f').rjust(20) + format(cell.points_nek[1].z,'.15f').rjust(20)
+			+ format(cell.points_nek[2].z,'.15f').rjust(20) + format(cell.points_nek[3].z,'.15f').rjust(20) +'\n')
 		# adding x
-		newRea = (newRea + format(cell.points_nek[4].x,'f').rjust(10) + format(cell.points_nek[5].x,'f').rjust(14)
-			+ format(cell.points_nek[6].x,'f').rjust(14) + format(cell.points_nek[7].x,'f').rjust(14) +'\n')
+		newRea = (newRea + format(cell.points_nek[4].x,'.15f').rjust(20) + format(cell.points_nek[5].x,'.15f').rjust(20)
+			+ format(cell.points_nek[6].x,'.15f').rjust(20) + format(cell.points_nek[7].x,'.15f').rjust(20) +'\n')
 		# adding y
-		newRea = (newRea + format(cell.points_nek[4].y,'f').rjust(10) + format(cell.points_nek[5].y,'f').rjust(14)
-			+ format(cell.points_nek[6].y,'f').rjust(14) + format(cell.points_nek[7].y,'f').rjust(14) +'\n')
+		newRea = (newRea + format(cell.points_nek[4].y,'.15f').rjust(20) + format(cell.points_nek[5].y,'.15f').rjust(20)
+			+ format(cell.points_nek[6].y,'.15f').rjust(20) + format(cell.points_nek[7].y,'.15f').rjust(20) +'\n')
 		# adding z
-		newRea = (newRea + format(cell.points_nek[4].z,'f').rjust(10) + format(cell.points_nek[5].z,'f').rjust(14)
-			+ format(cell.points_nek[6].z,'f').rjust(14) + format(cell.points_nek[7].z,'f').rjust(14) +'\n')
+		newRea = (newRea + format(cell.points_nek[4].z,'.15f').rjust(20) + format(cell.points_nek[5].z,'.15f').rjust(20)
+			+ format(cell.points_nek[6].z,'.15f').rjust(20) + format(cell.points_nek[7].z,'.15f').rjust(20) +'\n')
 		newReaFileHolder.write(newRea)
 		newRea = ''
 	# all elements are written.
@@ -74,14 +74,12 @@ def reaWriter(reaFile,newReaFile,points,faces,cells):
 			face = cell.faces_nek[j]
 			newRea = newRea + ' ' + face.nekWord
 			
-			k = 5
-			if ((i+1) > 999): k = 6
-			if ((i+1) > 9999): k = 7
-			#if (len(cells) > 100000):
-			#	print 'WARNING: too many elements (more than 1E6)'
-			#	sys.exit()
-			
-			newRea = newRea + str(i+1).rjust(k) + str(j+1).rjust(3)
+			if face.nekWord == "E":
+				newRea = newRea + str(i+1).rjust(8) + str(j+1).rjust(3)
+			elif face.nekWord == "SYM":
+				newRea = newRea + str(i+1).rjust(6) + str(0).rjust(3)
+			else:
+				newRea = newRea + str(i+1).rjust(8) + str(0).rjust(3)
 			
 			if(face.ifCyclic):
 				# if cyclic face
